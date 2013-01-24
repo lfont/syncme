@@ -1,7 +1,7 @@
 require_relative 'shell-command'
 
-module Command
-    class Iconv < Command::ShellCommand
+module SyncMe::Command
+    class Iconv < SyncMe::Command::ShellCommand
         attr_accessor :src, :dest
 
         @@pattern = '%{src} %{redirection} %{dest}'

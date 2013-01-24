@@ -1,4 +1,4 @@
-module Command
+module SyncMe::Command
     class ShellCommand
         def initialize(name, path = '', opt_prefix = '--')
             @name = name

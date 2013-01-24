@@ -1,6 +1,7 @@
 require 'optparse'
-require_relative 'synchronizer/file-sync'
-require_relative 'synchronizer/music-sync'
+require_relative 'lib/configuration'
+require_relative 'lib/synchronizer/file-sync'
+require_relative 'lib/synchronizer/music-sync'
 
 options = {}
 OptionParser.new do |opt|
@@ -12,7 +13,7 @@ OptionParser.new do |opt|
     end
 
     opt.on_tail('-v', '--version', 'Version') do
-        puts '0.0.1'
+        puts '0.0.2'
         exit
     end
 
@@ -41,8 +42,8 @@ if not options.key?(:dry_run)
     options[:dry_run] = false
 end
 
-synchronizer = eval("Synchronizer::#{options[:sync].capitalize}Sync").new(options[:src],
-                                                                          options[:dest],
-                                                                          *options[:sync_opts])
+config = SyncMe::Configuration.new(File.join(File.dirname($0), 'config.json'))
+synchronizerClass = eval("SyncMe::Synchronizer::#{options[:sync].capitalize}Sync")
+synchronizer = synchronizerClass.new(config, options[:src], options[:dest], *options[:sync_opts])
 synchronizer.dry_run = options[:dry_run]
 synchronizer.sync

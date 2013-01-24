@@ -1,7 +1,7 @@
 require_relative 'shell-command'
 
-module Command
-    class RSync < Command::ShellCommand
+module SyncMe::Command
+    class RSync < SyncMe::Command::ShellCommand
         attr_accessor :src, :dest
 
         @@pattern = '%{src} %{dest}'

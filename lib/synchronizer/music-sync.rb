@@ -3,14 +3,15 @@ require_relative 'file-sync'
 require_relative 'file-helpers'
 require_relative '../command/itunes-export'
 
-module Synchronizer
-	class MusicSync < Synchronizer::FileSync
-		include Synchronizer::FileHelpers
+module SyncMe::Synchronizer
+	class MusicSync < SyncMe::Synchronizer::FileSync
+		include SyncMe::Synchronizer::FileHelpers
 
-		def initialize(src, dest, share)
-			super(src, dest)
+		def initialize(config, src, dest, share)
+			super(config, src, dest)
 			@share = share
-			@itunesExport = Command::ITunesExport.new
+			@itunesExport = SyncMe::Command::ITunesExport.new('',
+			                                                  config['itunesexport_path'])
 		end
 
 		def sync

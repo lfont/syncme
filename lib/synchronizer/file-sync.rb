@@ -1,15 +1,16 @@
 require_relative '../command/rsync'
 
-module Synchronizer
+module SyncMe::Synchronizer
     class FileSync
         attr_accessor :dry_run
-        attr_reader :src, :dest
+        attr_reader :config, :src, :dest
 
-        def initialize(src, dest)
+        def initialize(config, src, dest)
+            @config = config
             @src = src
             @dest = dest
             @dry_run = false
-            @rsync = Command::RSync.new
+            @rsync = SyncMe::Command::RSync.new
         end
 
         def sync
