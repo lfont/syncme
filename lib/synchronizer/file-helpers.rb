@@ -13,7 +13,7 @@ module SyncMe::Synchronizer::FileHelpers
 
     def convert_file(file, from_code, to_code)
         puts "converting file: #{file} from: #{from_code} to: #{to_code}"
-        iconv = Command::Iconv.new
+        iconv = SyncMe::Command::Iconv.new
         iconv.src = file
         iconv.dest = "#{file}.tmp"
         puts iconv.opt_from_code(from_code)
@@ -24,6 +24,7 @@ module SyncMe::Synchronizer::FileHelpers
     end
 
     def appendto_filename(file, part)
+        puts "appending part: #{part} to file: #{file}"
         extname = File.extname(file)
         prefix = file.sub(Regexp.new("#{extname}$"), '')
         new_name = prefix + part + extname

@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-ruby -w sync-me.rb $@
+SCRIPT=`readlink $0`
+if [ -z "$SCRIPT" ]; then
+    SCRIPT=$0
+fi
+DIR=`dirname $SCRIPT`
+
+ruby -w "$DIR"/sync-me.rb "$@"
