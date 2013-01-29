@@ -10,7 +10,7 @@ module SyncMe::Synchronizer
 		def initialize(config, src, dest, share)
 			super(config, src, dest)
 			@share = share
-			@itunesExport = SyncMe::Command::ITunesExport.new('',
+			@itunesExport = SyncMe::Command::ITunesExport.new(config['java_path'],
 			                                                  config['itunesexport_path'])
 		end
 

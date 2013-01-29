@@ -15,7 +15,6 @@ module SyncMe::Command
 
         def exec
             cmd = self.to_s
-            cmd = File.join(@path, cmd) unless @path.empty?
             `#{cmd}`
             $?.exitstatus
         end
@@ -28,9 +27,7 @@ module SyncMe::Command
                 opt = method.sub(/^opt_/, '')
                             .gsub(/_/, '-')
                 val = ''
-                if not args.empty?
-                    val.replace("=\"#{args.join(',')}\"")
-                end
+                val.replace("=\"#{args.join(',')}\"") unless args.empty?
                 @cmd = @cmd % { :opt => "#{@opt_prefix + opt + val} %{opt}" }
                 self
             end
@@ -38,7 +35,9 @@ module SyncMe::Command
 
         def to_s
             # fill the last %{opt}
-            @cmd % { :opt => '' }
+            cmd = @cmd % { :opt => '' }
+            cmd.replace(File.join(@path, cmd)) unless @path.empty?
+            cmd
         end
     end
 end

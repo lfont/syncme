@@ -6,10 +6,10 @@ module SyncMe::Command
 
         @@pattern = '%{src} %{redirection} %{dest}'
 
-        def initialize(path = '')
+        def initialize
             @src = ''
             @dest = ''
-            super('iconv', path)
+            super('iconv')
         end
 
         def init

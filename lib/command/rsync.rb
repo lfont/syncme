@@ -6,10 +6,10 @@ module SyncMe::Command
 
         @@pattern = '%{src} %{dest}'
 
-        def initialize(path = '')
+        def initialize
             @src = ''
             @dest = ''
-            super('rsync', path)
+            super('rsync')
         end
 
         def init
