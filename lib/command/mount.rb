@@ -1,0 +1,30 @@
+require_relative 'shell-command'
+
+module SyncMe::Command
+    class Mount < SyncMe::Command::ShellCommand
+        attr_accessor :src, :dest
+
+        @@pattern = '%{src} %{dest}'
+
+        def initialize
+            @src = ''
+            @dest = ''
+            super('mount', '', '-')
+        end
+
+        def init
+            @src.clear
+            @dest.clear
+            super
+        end
+
+        def to_s
+            src = ''
+            dest = ''
+            src.replace("\"#{@src}\"") unless @src.empty?
+            dest.replace("\"#{@dest}\"") unless @dest.empty?
+            (super + @@pattern) % { :src => src,
+                                    :dest => dest }
+        end
+    end
+end

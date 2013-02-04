@@ -1,6 +1,6 @@
 require_relative '../command/iconv'
 
-module SyncMe::Synchronizer::FileHelpers
+module SyncMe::Tool::FileManagement
     def delete_file(file)
         puts "deleting file: #{file}"
         File.delete(file) unless @dry_run
